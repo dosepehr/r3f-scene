@@ -1,4 +1,5 @@
 import { Center, useGLTF, useTexture } from '@react-three/drei';
+import Fireflies from './Fireflies';
 
 export function Model() {
     const { nodes } = useGLTF('/portal.glb');
@@ -38,6 +39,7 @@ export function Model() {
                     <meshBasicMaterial color='#fff' />
                 </mesh>
             </>
+            <Fireflies />
         </Center>
     );
 }
