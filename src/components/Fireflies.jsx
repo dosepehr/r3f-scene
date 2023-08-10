@@ -9,7 +9,8 @@ const Fireflies = () => {
                 scale={[4, 2, 4]}
                 position-y={1}
                 speed={0.5}
-                count={40}
+                count={50}
+                noise={[0.01, 0.01, 0.01]}
             />
         </>
     );
