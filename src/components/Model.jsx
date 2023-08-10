@@ -1,7 +1,26 @@
-import { Center, useGLTF, useTexture } from '@react-three/drei';
+import { Center, shaderMaterial, useGLTF, useTexture } from '@react-three/drei';
+import { extend, useFrame } from '@react-three/fiber';
 import Fireflies from './Fireflies';
+import portalVertexShader from '../shaders/portal/vertex';
+import portalFragmentShader from '../shaders/portal/fragment';
+import * as THREE from 'three';
+import { useRef } from 'react';
 
-export function Model() {
+const PortalMaterial = shaderMaterial(
+    {
+        uTime: 0,
+        uColorStart: new THREE.Color('#ffffff'),
+        uColorEnd: new THREE.Color('#000000'),
+    },
+    portalVertexShader,
+    portalFragmentShader
+);
+extend({ PortalMaterial });
+const Model = () => {
+    const portalMaterial = useRef();
+    useFrame((state, delta) => {
+        portalMaterial.current.uTime += delta;
+    });
     const { nodes } = useGLTF('/portal.glb');
     const bakedTexture = useTexture('baked.jpg');
     bakedTexture.flipY = false;
@@ -36,12 +55,15 @@ export function Model() {
                     position={nodes.portalLight.position}
                     rotation={nodes.portalLight.rotation}
                 >
-                    <meshBasicMaterial color='#fff' />
+                    {/* <meshBasicMaterial color='#fff' /> */}
+                    <portalMaterial ref={portalMaterial} />
                 </mesh>
             </>
             <Fireflies />
         </Center>
     );
-}
+};
 
 useGLTF.preload('/portal.glb');
+
+export default Model;
