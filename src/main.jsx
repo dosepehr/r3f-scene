@@ -7,6 +7,7 @@ import { Canvas } from '@react-three/fiber';
 createRoot(document.getElementById('root')).render(
     <StrictMode>
         <Canvas
+            flat
             camera={{
                 fov: 45,
                 near: 0.1,
@@ -14,6 +15,7 @@ createRoot(document.getElementById('root')).render(
                 position: [1, 2, 6],
             }}
         >
+            <color args={['#201919']} attach='background' />
             <App />
         </Canvas>
     </StrictMode>

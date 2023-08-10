@@ -1,12 +1,10 @@
 import { OrbitControls } from '@react-three/drei';
+import {Model} from './components/Model';
 const App = () => {
     return (
         <>
             <OrbitControls makeDefault />
-            <mesh scale={1.5}>
-                <meshNormalMaterial />
-                <boxGeometry />
-            </mesh>
+            <Model />
         </>
     );
 };
